@@ -1,155 +1,150 @@
-import asyncio
+import requests
 import time
-from telethon import TelegramClient, errors
-
-api_id =32706386
-api_hash = "b25f4f8f75789a67f0172d12d9f759d2"
-
-client = TelegramClient("hesap1", api_id, api_hash)
-
-group1 = -1003926759594
-group2 = -1004297329547
 
 
-messages1 = [
-    "anana atlı suvari",
-    "kılıcıyla dalarım xd",
-    "ananın gözlerine",
-    "kaynar sular döküceğim",
-    "kimse"
+BOTLAR = [
+
+    {
+        "token": "8444679695:AAFDR0zVoJgvfIWAQEns4XbH2JYsXTwz4EM",
+        "chat_ids": ["@susturankimse"],
+
+        "mesajlar": [
+            "KİMSE YENEMEZ",
+            "KİMSE SUSTURAMAZ",
+            "KİMSE İNATLAŞAMAZ",
+            "KİMSE ZITLAŞAMAZ",
+            "KİMSE DURDURAMAZ"
+        ],
+
+        "index": 0,
+        "sure":15,
+        "son_gonderim": 0
+    },
+
+
+    {
+        "token": "8559320902:AAG7Yeui0_6gHZrbLJqjcJD9uTp5XYVScS4",
+        "chat_ids": ["@susturankimse"],
+
+        "mesajlar": [
+            "99",
+            "66",
+            "99",
+            "66",
+            "99"
+        ],
+
+        "index": 0,
+        "sure":20,
+        "son_gonderim": 0
+    },
+
+
+    {
+        "token": "8401816464:AAHrLxyWuneDEIDy1GA1Mc_RVPLffQRkNA8",
+        "chat_ids": ["@susturankimse"],
+
+        "mesajlar": [
+            "ANA NIZI GÖTÜN DEN",
+            "SİKEYİ M TÜREMELER",
+            "ANAN IN BURUN",
+            "DELİKLERİNİ DÖLLERİM XD",
+            "SUSTURABİLEN DURDURABİLEN YOK #"
+        ],
+
+        "index": 0,
+        "sure":15,
+        "son_gonderim": 0
+    },
+
+
+    {
+        "token": "8678850317:AAGSfRnnQnRl07uuP4TIx28dg6lVdavkp7c",
+        "chat_ids": ["@susturankimse"],
+
+        "mesajlar": [
+            "ANAN IN",
+            "AM INA",
+            "ÇAK I",
+            "SOKARI M",
+            "xdxd"
+        ],
+
+        "index": 0,
+        "sure":10,
+        "son_gonderim": 0
+    },
+
+
+    {
+        "token": "8401816464:AAHrLxyWuneDEIDy1GA1Mc_RVPLffQRkNA8",
+        "chat_ids": ["@susturankimse"],
+
+        "mesajlar": [
+            "ANAN IN AM INA",
+            "ZEBEL MÜHRÜ BASARIM",
+            "ANAN IN GÖTÜ NE",
+            "HO OK ATAY IM",
+            "ANAN IN AĞZINI DÖLLERİM"
+        ],
+
+        "index": 0,
+        "sure":25,
+        "son_gonderim": 0
+    }
+
 ]
 
-messages2 = [
-    "anana atlı süvari",
-    "kılıcıyla dalarımxd",
-    "ananın gözlerine ",
-    "kaynar sular döküceğim xd",
-    "kimse"
-]
 
 
-# bağlantı kontrol
-async def reconnect():
+# Yazıyor göstergesi
+def yaziyor(bot, chat_id):
 
-    while not client.is_connected():
+    requests.post(
+        f"https://api.telegram.org/bot{bot['token']}/sendChatAction",
+        data={
+            "chat_id": chat_id,
+            "action": "typing"
+        },
+        timeout=10
+    )
 
-        try:
-            print("🔄 Yeniden bağlanıyor...")
-            await client.connect()
 
-            if client.is_connected():
-                print("✅ Bağlantı geri geldi")
 
-        except Exception as e:
-            print("❌ Bağlanamadı:", e)
+def gonder(bot):
 
-        await asyncio.sleep(5)
+    mesaj = bot["mesajlar"][bot["index"]]
 
 
+    for chat_id in bot["chat_ids"]:
 
-async def safe_start():
+        yaziyor(bot, chat_id)
 
-    while True:
-        try:
-            await client.start()
-            print("✅ Telegram bağlandı")
-            break
+        time.sleep(3)
 
-        except Exception as e:
-            print("Bağlantı hatası:", e)
-            await asyncio.sleep(5)
 
+        requests.post(
+            f"https://api.telegram.org/bot{bot['token']}/sendMessage",
+            data={
+                "chat_id": chat_id,
+                "text": mesaj
+            },
+            timeout=10
+        )
 
 
-async def typing(chat):
+        print(
+            "Gönderildi:",
+            chat_id,
+            "->",
+            mesaj
+        )
 
-    try:
-        async with client.action(chat, "typing"):
-            await asyncio.sleep(2)
 
-    except:
-        pass
+    bot["index"] = (
+        bot["index"] + 1
+    ) % len(bot["mesajlar"])
 
-
-
-async def send(chat, msg):
-
-    try:
-
-        if not client.is_connected():
-            await reconnect()
-
-
-        await typing(chat)
-
-        await client.send_message(chat, msg)
-
-        print("📤 Gönderildi:", msg)
-
-
-    except errors.FloodWaitError as e:
-
-        print("⛔ Flood bekleme:", e.seconds)
-
-        await asyncio.sleep(e.seconds)
-
-
-    except Exception as e:
-
-        print("⚠ Gönderme hatası:", e)
-
-        await asyncio.sleep(5)
-
-
-
-async def loop():
-
-    i = 0
-
-    while True:
-
-        try:
-
-            if not client.is_connected():
-
-                print("📡 İnternet/bağlantı yok bekleniyor")
-
-                await reconnect()
-
-
-            msg1 = messages1[i % len(messages1)]
-            msg2 = messages2[i % len(messages2)]
-
-
-            await send(group1, msg1)
-
-            await asyncio.sleep(2)
-
-
-            await send(group2, msg2)
-
-
-            i += 1
-
-
-            await asyncio.sleep(8)
-
-
-        except Exception as e:
-
-            print("🔥 Döngü hatası:", e)
-
-            await asyncio.sleep(5)
-
-
-
-async def main():
-
-    await safe_start()
-
-    print("🚀 Bot 7/24 aktif")
-
-    await loop()
 
 
 
@@ -157,11 +152,24 @@ while True:
 
     try:
 
-        asyncio.run(main())
+        simdi = time.time()
+
+
+        for bot in BOTLAR:
+
+            if simdi - bot["son_gonderim"] >= bot["sure"]:
+
+                gonder(bot)
+
+                bot["son_gonderim"] = simdi
 
 
     except Exception as e:
 
-        print("💥 Yeniden başlıyor:", e)
+        print(
+            "Hata oldu ama bot devam ediyor:",
+            e
+        )
 
-        time.sleep(5)
+
+    time.sleep(1)
