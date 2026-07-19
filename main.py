@@ -33,7 +33,7 @@ BOTLAR = [
             "KİMSE DURDURAMAZ"
         ],
         "index": 0,
-        "sure":15,
+        "sure":45,
         "son_gonderim": 0
     },
     {
@@ -47,7 +47,7 @@ BOTLAR = [
             "99"
         ],
         "index": 0,
-        "sure":20,
+        "sure":45,
         "son_gonderim": 0
     },
     {
@@ -61,7 +61,7 @@ BOTLAR = [
             "SUSTURABİLEN DURDURABİLEN YOK #"
         ],
         "index": 0,
-        "sure":15,
+        "sure":45,
         "son_gonderim": 0
     },
     {
@@ -75,7 +75,7 @@ BOTLAR = [
             "xdxd"
         ],
         "index": 0,
-        "sure":10,
+        "sure":45,
         "son_gonderim": 0
     },
     {
@@ -89,7 +89,7 @@ BOTLAR = [
             "ANAN IN AĞZINI DÖLLERİM"
         ],
         "index": 0,
-        "sure":25,
+        "sure":60,
         "son_gonderim": 0
     }
 ]
