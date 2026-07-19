@@ -78,7 +78,7 @@ BOTLAR = [
 
     {
         "token": "8401816464:AAHrLxyWuneDEIDy1GA1Mc_RVPLffQRkNA8",
-        "chat_ids": ["@susturankimse"],
+        "chat_ids": ["@susturamse"],
 
         "mesajlar": [
             "ANAN IN AM INA",
