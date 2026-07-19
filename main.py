@@ -87,13 +87,14 @@ def gonder(bot):
             
             # --- AKILLI TELEGRAM CEZA VE KİLİTLEME SİSTEMİ ---
             if res.status_code == 429:
-                # Telegram'dan gelen tam ceza saniyesini okur (Yoksa otomatik 40 saniye uyur)
                 ceza_suresi = res.json().get("parameters", {}).get("retry_after", 40)
                 print(f"Telegram Limitine Takildi! Bot {ceza_suresi} saniye kendini kilitliyor...")
                 time.sleep(ceza_suresi)
-                continue
+            elif res.status_code == 200:
+                print("Gönderildi:", chat_id, "->", mesaj)
+            else:
+                print(f"Hata Kodu {res.status_code}: {res.text}")
                 
-            print("Gönderildi:", chat_id, "->", mesaj)
         except Exception as e:
             print("Mesaj gonderilemedi:", e)
             
