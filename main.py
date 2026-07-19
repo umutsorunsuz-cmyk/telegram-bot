@@ -9,9 +9,10 @@ app = Flask('')
 
 @app.route('/')
 def home():
-    return "Akilli Spam Korumali ve Kilitlenmeyen Sunucu Aktif!"
+    return "Bot sorunsuz sekilde aktif ve calisiyor!"
 
 def run_web_server():
+    # Render sisteminin otomatik verdigi port numarasini okur
     port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port)
 
@@ -22,53 +23,87 @@ def keep_alive():
 
 BOTLAR = [
     {
-        "token": "8679022632:AAFTJahPjxFqijWFdhQRxwl0UDBctic8nj4",
-        "chat_ids": ["-1003930885725"],
-        "mesajlar": ["KİMSE YENEMEZ", "KİMSE SUSTURAMAZ", "KİMSE İNATLAŞAMAZ", "KİMSE ZITLAŞAMAZ", "KİMSE DURDURAMAZ"],
+        "token": "8444679695:AAFDR0zVoJgvfIWAQEns4XbH2JYsXTwz4EM",
+        "chat_ids": ["@susturankimse"],
+        "mesajlar": [
+            "KİMSE YENEMEZ",
+            "KİMSE SUSTURAMAZ",
+            "KİMSE İNATLAŞAMAZ",
+            "KİMSE ZITLAŞAMAZ",
+            "KİMSE DURDURAMAZ"
+        ],
         "index": 0,
-        "sure": 35,  # Ban yememesi için süreler uzatıldı
+        "sure":15,
         "son_gonderim": 0
     },
     {
-        "token": "8207117026:AAFdBpVbb2_-asIXQhcpGrqQIbd6lmZ3toQ",
-        "chat_ids": ["-1003930885725"],
-        "mesajlar": ["99", "66", "99", "66", "99"],
+        "token": "8559320902:AAG7Yeui0_6gHZrbLJqjcJD9uTp5XYVScS4",
+        "chat_ids": ["@susturankimse"],
+        "mesajlar": [
+            "99",
+            "66",
+            "99",
+            "66",
+            "99"
+        ],
         "index": 0,
-        "sure": 50,
+        "sure":20,
         "son_gonderim": 0
     },
     {
-        "token": "8823088191:AAHI-J9KlVGk-7LuudNY9gh5iD7URi_fS5M",
-        "chat_ids": ["-1003930885725"],
-        "mesajlar": ["ANA NIZI GÖTÜN DEN", "SİKEYİ M TÜREMELER", "ANAN IN BURUN", "DELİKLERİNİ DÖLLERİM XD", "SUSTURABİLEN DURDURABİLEN YOK #"],
+        "token": "8401816464:AAHrLxyWuneDEIDy1GA1Mc_RVPLffQRkNA8",
+        "chat_ids": ["@susturankimse"],
+        "mesajlar": [
+            "ANA NIZI GÖTÜN DEN",
+            "SİKEYİ M TÜREMELER",
+            "ANAN IN BURUN",
+            "DELİKLERİNİ DÖLLERİM XD",
+            "SUSTURABİLEN DURDURABİLEN YOK #"
+        ],
         "index": 0,
-        "sure": 40,
+        "sure":15,
         "son_gonderim": 0
     },
     {
-        "token": "8404710859:AAFSlQ7bUQ0SK87zRUk0oj7zjce3tL9E2NE",
-        "chat_ids": ["-1003930885725"],
-        "mesajlar": ["ANAN IN", "AM INA", "ÇAK I", "SOKARI M", "xdxd"],
+        "token": "8678850317:AAGSfRnnQnRl07uuP4TIx28dg6lVdavkp7c",
+        "chat_ids": ["@susturankimse"],
+        "mesajlar": [
+            "ANAN IN",
+            "AM INA",
+            "ÇAK I",
+            "SOKARI M",
+            "xdxd"
+        ],
         "index": 0,
-        "sure": 30,
+        "sure":10,
         "son_gonderim": 0
     },
     {
-        "token": "8738362829:AAF3rvT8aaL-SGu2bdeNXQCS3NCAx7lLznI",
-        "chat_ids": ["-1003930885725"],
-        "mesajlar": ["ANAN IN AM INA", "ZEBEL MÜHRÜ BASARIM", "ANAN IN GÖTÜ NE", "HO OK ATAY IM", "ANAN IN AĞZINI DÖLLERİM"],
+        "token": "8401816464:AAHrLxyWuneDEIDy1GA1Mc_RVPLffQRkNA8",
+        "chat_ids": ["@susturamse"],
+        "mesajlar": [
+            "ANAN IN AM INA",
+            "ZEBEL MÜHRÜ BASARIM",
+            "ANAN IN GÖTÜ NE",
+            "HO OK ATAY IM",
+            "ANAN IN AĞZINI DÖLLERİM"
+        ],
         "index": 0,
-        "sure": 65,
+        "sure":25,
         "son_gonderim": 0
     }
 ]
 
+# Yazıyor göstergesi
 def yaziyor(bot, chat_id):
     try:
         requests.post(
-            f"https://telegram.org{bot['token']}/sendChatAction",
-            data={"chat_id": chat_id, "action": "typing"},
-            timeout=5
+            f"https://api.telegram.org/bot{bot['token']}/sendChatAction",
+            data={
+                "chat_id": chat_id,
+                "action": "typing"
+            },
+            timeout=10
         )
     except Exception:
         pass
@@ -77,43 +112,33 @@ def gonder(bot):
     mesaj = bot["mesajlar"][bot["index"]]
     for chat_id in bot["chat_ids"]:
         yaziyor(bot, chat_id)
-        time.sleep(2)
+        time.sleep(3)
         try:
-            res = requests.post(
-                f"https://telegram.org{bot['token']}/sendMessage",
-                data={"chat_id": chat_id, "text": mesaj},
-                timeout=5
+            requests.post(
+                f"https://api.telegram.org/bot{bot['token']}/sendMessage",
+                data={
+                    "chat_id": chat_id,
+                    "text": mesaj
+                },
+                timeout=10
             )
-            
-            # --- AKILLI TELEGRAM CEZA VE KİLİTLEME SİSTEMİ ---
-            if res.status_code == 429:
-                ceza_suresi = res.json().get("parameters", {}).get("retry_after", 40)
-                print(f"Telegram Limitine Takildi! Bot {ceza_suresi} saniye kendini kilitliyor...")
-                time.sleep(ceza_suresi)
-            elif res.status_code == 200:
-                print("Gönderildi:", chat_id, "->", mesaj)
-            else:
-                print(f"Hata Kodu {res.status_code}: {res.text}")
-                
+            print("Gönderildi:", chat_id, "->", mesaj)
         except Exception as e:
             print("Mesaj gonderilemedi:", e)
             
     bot["index"] = (bot["index"] + 1) % len(bot["mesajlar"])
 
-def bot_ana_dongu():
-    while True:
-        try:
-            simdi = time.time()
-            for bot in BOTLAR:
-                if simdi - bot["son_gonderim"] >= bot["sure"]:
-                    gonder(bot)
-                    bot["son_gonderim"] = simdi
-        except Exception as e:
-            print("Döngü hatası:", e)
-        time.sleep(1)
-
-# İki sistemi de ayrı kollarda güvenle başlat
+# Web sunucusunu ana döngü başlamadan önce tetikliyoruz
 keep_alive()
 
-bot_thread = Thread(target=bot_ana_dongu)
-bot_thread.start()
+while True:
+    try:
+        simdi = time.time()
+        for bot in BOTLAR:
+            if simdi - bot["son_gonderim"] >= bot["sure"]:
+                gonder(bot)
+                bot["son_gonderim"] = simdi
+    except Exception as e:
+        print("Hata oldu ama bot devam ediyor:", e)
+
+    time.sleep(1)
