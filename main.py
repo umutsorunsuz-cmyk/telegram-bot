@@ -24,7 +24,7 @@ def keep_alive():
 BOTLAR = [
     {
         "token": "8444679695:AAFDR0zVoJgvfIWAQEns4XbH2JYsXTwz4EM",
-        "chat_ids": ["@susturankimse"],
+        "chat_ids": ["@denemecar00"],
         "mesajlar": [
             "KİMSE YENEMEZ",
             "KİMSE SUSTURAMAZ",
@@ -38,7 +38,7 @@ BOTLAR = [
     },
     {
         "token": "8559320902:AAG7Yeui0_6gHZrbLJqjcJD9uTp5XYVScS4",
-        "chat_ids": ["@susturankimse"],
+        "chat_ids": ["@denemecar00"],
         "mesajlar": [
             "99",
             "66",
@@ -52,7 +52,7 @@ BOTLAR = [
     },
     {
         "token": "8401816464:AAHrLxyWuneDEIDy1GA1Mc_RVPLffQRkNA8",
-        "chat_ids": ["@susturankimse"],
+        "chat_ids": ["@denemecar00"],
         "mesajlar": [
             "ANA NIZI GÖTÜN DEN",
             "SİKEYİ M TÜREMELER",
@@ -66,7 +66,7 @@ BOTLAR = [
     },
     {
         "token": "8678850317:AAGSfRnnQnRl07uuP4TIx28dg6lVdavkp7c",
-        "chat_ids": ["@susturankimse"],
+        "chat_ids": ["@denemecar00"],
         "mesajlar": [
             "ANAN IN",
             "AM INA",
@@ -80,7 +80,7 @@ BOTLAR = [
     },
     {
         "token": "8401816464:AAHrLxyWuneDEIDy1GA1Mc_RVPLffQRkNA8",
-        "chat_ids": ["@susturamse"],
+        "chat_ids": ["@denemecar00"],
         "mesajlar": [
             "ANAN IN AM INA",
             "ZEBEL MÜHRÜ BASARIM",
